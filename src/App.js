@@ -43,7 +43,8 @@ function App() {
 	}, [geolocation])
 
 	useEffect(() => {
-		if (searchQuery) {
+		//Length > 1 because the API crashes from too big a request one letter at a time.
+		if (searchQuery.length > 1) {
 			fetchCitiesBySearchQuery(searchQuery)
 				.then(response => {
 					setSearchedCities(response);
