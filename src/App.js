@@ -6,15 +6,17 @@ import LocalWeather from "./components/LocalWeather/LocalWeather";
 import Loader from "./components/UI/Loader/Loader";
 import SearchPanel from "./components/UI/SearchPanel/SearchPanel";
 import CitiesList from "./components/CitiesList/CitiesList";
+import RangeSlider from "./components/UI/RangeSlider/RangeSlider";
 
 function App() {
 	const [geolocation, setGeolocation] = useState(null);
 	const [isAllowedGeolocation, setIsAllowedGeolocation] = useState(true);
 	const [searchQuery, setSearchQuery] = useState('');
 	const [searchedCities, setSearchedCities] = useState(null);
+	const [backgroundTemperature, setBackgroundTemperature] = useState(0);
 	const [locationData, setLocationData] = useState({
 		city: '',
-		temperature: null,
+		temperature: 0,
 		iconState: '',
 	})
 
@@ -27,6 +29,7 @@ function App() {
 			fetchLocalWeather(geolocation)
 				.then(({consolidated_weather: weather, title}) => {
 					const latestWeather = weather[weather.length - 1];
+					setBackgroundTemperature(latestWeather['the_temp']);
 					setLocationData((state) => {
 						return {
 							...state,
@@ -68,8 +71,12 @@ function App() {
 		return await WeatherService.getCitiesBySearchQuery(query);
 	}
 
+	const changeBackgroundByTemperature = (temperature) => {
+		setBackgroundTemperature(temperature);
+	}
+
 	return (
-		<div className="app" style={{background: getColorByTemperature(locationData.temperature)}}>
+		<div className="app" style={{background: getColorByTemperature(backgroundTemperature)}}>
 			{isAllowedGeolocation
 				? <>
 					{locationData.city
@@ -82,6 +89,8 @@ function App() {
 			}
 			<SearchPanel updateSearch={setSearchQuery}/>
 			<CitiesList cities={searchedCities}/>
+			<RangeSlider changeValueHandler={changeBackgroundByTemperature} min={-100} max={100}
+						 value={backgroundTemperature}/>
 		</div>
 	);
 }
