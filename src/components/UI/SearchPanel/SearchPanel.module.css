@@ -1,0 +1,38 @@
+.search-form {
+    margin: 20px 0;
+}
+
+.search-form input, .search-form button {
+    outline: none;
+    padding: 10px 15px;
+    font-size: 16px;
+}
+
+.search-form input, .search-form button {
+    border-top: 1px solid #00000050;
+    border-bottom: 1px solid #00000050;
+}
+
+.search-form input {
+    border-radius: 5px 0 0 5px;
+    border-left: 1px solid #00000050;
+    border-right: 0 transparent;
+}
+
+.search-form button {
+    color: #ffffff;
+    background: #ff884d;
+    border-radius: 0 5px 5px 0;
+    border-right: 1px solid #00000050;
+    border-left: 0 transparent;
+    cursor: pointer;
+    transition: background-color .3s;
+}
+
+.search-form button:hover {
+    background: #e64d00;
+}
+
+.search-form button:active {
+    background: #993300;
+}

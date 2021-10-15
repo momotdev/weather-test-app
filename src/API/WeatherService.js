@@ -1,6 +1,6 @@
-const PERSONAL_CORS_PROXY_URL = 'https://cors-anywere-weather-proxy.herokuapp.com/';
+const PERSONAL_CORS_PROXY_URL = 'https://cors-anywere-weather-proxy.herokuapp.com';
 const API_URL = 'https://www.metaweather.com';
-const BASE_URL = `${PERSONAL_CORS_PROXY_URL}${API_URL}`;
+const BASE_URL = `${PERSONAL_CORS_PROXY_URL}/${API_URL}`;
 
 export default class WeatherService {
 	static async getLocationByCoords(lat, lon) {
@@ -13,4 +13,8 @@ export default class WeatherService {
 		return await response.json();
 	}
 
+	static async getCitiesBySearchQuery(query) {
+		const response = await fetch(`${BASE_URL}/api/location/search/?query=${query}`);
+		return await response.json();
+	}
 }

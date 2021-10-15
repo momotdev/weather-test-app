@@ -1,0 +1,10 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    transition: all .3s;
+}
+
+.not-found {
+    font-weight: bold;
+    font-size: 18px;
+}
